@@ -89,7 +89,7 @@ To create a volcano plot for **Mutant 1**, we need to extract the relevant data 
 We will create a new object named `mut1` that contains only **Protein, log2FC_Mutant_1, and p_value_mutant_1**.
 
 ```r
-mut1 <- select(data, protein, log2FC_Mutant_1, p_value_mutant_1)
+mut1 <- select(data, "protein", "log2FC_Mutant_1", "p_value_mutant_1")
 ```
 
 ### Explanation:
