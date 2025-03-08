@@ -23,10 +23,11 @@ You can generate a Volcano Plot using **R
 To use the Volcano Plot, the following packages should be installed in your R environment.
 If these packages are not installed, use the following code to install them:
 
+```r
 install.packages("ggplot2")
 install.packages("dplyr")
 
-``r
+```
 
 
 ## **📂 Files in This Repository**
