@@ -21,13 +21,18 @@ A **Volcano Plot** is a scatter plot used to visualize **differential expression
 You can generate a Volcano Plot using **R 
 
 To use the Volcano Plot, the following packages should be installed in your R environment.
+
 If these packages are not installed, use the following code to install them:
 
 ```r
 install.packages("ggplot2")
 install.packages("dplyr")
-
 ```
+Once those packages are installed, load them using the following code:
+
+
+
+
 
 
 ## **📂 Files in This Repository**
