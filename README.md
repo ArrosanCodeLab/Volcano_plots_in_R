@@ -110,5 +110,44 @@ ggplot(mut1,
 - `y=-log10(p_value_mutant_1)`: The **y-axis** represents the **-log10(p-value)**, which helps highlight significant proteins (higher values mean more significant changes).
 - `geom_point()`: Adds **scatter points** to create the volcano plot.
 
-This volcano plot helps visualize proteins that are significantly upregulated or downregulated in **Mutant 1** based on their fold change and statistical significance. 🚀
+
+### Generating the Updated Volcano Plot using alpha to address overplotting
+
+ggplot(mut1,
+       aes(x=log2FC_Mutant_1,
+           y=-log10(p_value_mutant_1))) +
+  geom_point(alpha=0.3)
+  
+  - `geom_point(alpha=0.3)`: Reduces overplotting by making points semi-transparent (`alpha=0.3`).
+
+## 🎨 Adding Color to Indicate Significance
+To highlight significantly abundant proteins, we will create a **new column** in `mut1` that categorizes proteins based on a **p-value threshold**.
+
+```r
+mut1$threshold = as.factor(mut1$p_value_mutant_1 < 0.001)
+```
+
+### Explanation:
+- `mut1$p_value_mutant_1 < 0.001`: This checks if the p-value is **less than 0.001** (significance threshold).
+- `as.factor(...)`: Converts this logical value (`TRUE/FALSE`) into a categorical variable.
+- `mut1$threshold`: Stores this new categorical variable in the dataset.
+
+### Viewing the Updated Dataframe
+```r
+View(mut1)
+```
+
+### Generating the Updated Volcano Plot with Color
+```r
+ggplot(mut1,
+       aes(x=log2FC_Mutant_1,
+           y=-log10(p_value_mutant_1),
+           colour = threshold)) +
+  geom_point(alpha=0.3)
+```
+
+### Explanation of the Updated Plot:
+- `colour = threshold`: Colors the points based on significance (TRUE = significant, FALSE = not significant).
+- `geom_point(alpha=0.3)`: Keeps transparency to manage overplotting.
+
 
