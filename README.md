@@ -67,35 +67,48 @@ To **view** your dataset in RStudio:
 View(data)
 ```
 ### Example of Data View in R
-| Protein   | log2FC  | p_value       | neg_log10_pval |
-|-----------|--------|--------------|---------------|
-| Protein 1  | -2.234  | 0.011936301  | 2.02313       |
-| Protein 2  | -0.4356 | 0.048117947  | 1.417693      |
-| Protein 3  | 4.1234  | 0.030068286  | 1.621891      |
-| Protein 4  | 0.2456  | 0.025751486  | 1.689198      |
-| Protein 5  | 0.3456  | 0.020128667  | 1.796185      |
-| Protein 6  | 4.4567  | 0.044012327  | 1.456426      |
-| Protein 7  | 0.82312 | 0.018204593  | 1.839819      |
-| Protein 8  | -3.53   | 0.014411964  | 1.941277      |
-| Protein 9  | -2.37567| 0.009532262  | 2.168936      |
-| Protein 10 | -0.4567 | 0.009608587  | 2.165068      |
+| Protein   | log2FC_Mutant_1  | p_value_mutant_1  | log2FC_Mutant_2  | p_value_mutant_2  |
+|-----------|----------------|------------------|----------------|------------------|
+| Protein 1  | -2.234  | 0.011936301  | -0.034013746  | 0.870449822  |
+| Protein 2  | -0.4356 | 0.048117947  | 0.977276688  | 0.006824968  |
+| Protein 3  | 4.1234  | 0.030068286  | -0.148552283  | 0.184937661  |
+| Protein 4  | 0.2456  | 0.025751486  | 0.007016625  | 0.961535499  |
+| Protein 5  | 0.3456  | 0.020128667  | 0.032894575  | 0.761733234  |
+| Protein 6  | 4.4567  | 0.044012327  | -0.119952382  | 0.212598854  |
+| Protein 7  | 0.82312 | 0.018204593  | 0.396669404  | 0.005511213  |
+| Protein 8  | -3.53   | 0.014411964  | 0.168111964  | 0.97312934  |
+| Protein 9  | -2.37567| 0.009532262  | 1.166365433  | 0.99997572  |
+| Protein 10 | -0.4567 | 0.009608587  | -0.002227916  | 0.050023696  |
 
  To check the **structure** of your dataset:
 ```r
 str(data)
 ```
+## 📊 Generating a Volcano Plot for Mutant 1
+To create a volcano plot for **Mutant 1**, we need to extract the relevant data from the dataset. 
+We will create a new object named `mut1` that contains only **Protein, log2FC_Mutant_1, and p_value_mutant_1**.
 
+```r
+mut1 <- select(data, protein, log2FC_Mutant_1, p_value_mutant_1)
+```
 
+### Explanation:
+- `select(data, protein, log2FC_Mutant_1, p_value_mutant_1)`: This function from **dplyr** extracts only the relevant columns needed for plotting.
 
+Now, we generate a volcano plot using `ggplot2`:
 
+```r
+ggplot(mut1,
+       aes(x=log2FC_Mutant_1,
+           y=-log10(p_value_mutant_1))) +
+  geom_point()
+```
 
+### Explanation of Functions:
+- `ggplot(mut1, aes(...))`: Initializes the plot with `mut1` data and defines **aesthetics** (`aes`).
+- `x=log2FC_Mutant_1`: The **x-axis** represents the **log2 fold change**, showing the magnitude of change.
+- `y=-log10(p_value_mutant_1)`: The **y-axis** represents the **-log10(p-value)**, which helps highlight significant proteins (higher values mean more significant changes).
+- `geom_point()`: Adds **scatter points** to create the volcano plot.
 
+This volcano plot helps visualize proteins that are significantly upregulated or downregulated in **Mutant 1** based on their fold change and statistical significance. 🚀
 
-## **📂 Files in This Repository**
-- 📜 `volcano_plot.R` → Contains the **R script** for generating a volcano plot.
-- 🐍 `volcano_plot.py` → Contains the **Python script** for generating a volcano plot.
-
----
-
-## **📢 Contributions**
-🚀 If you want to improve or add more features, feel free to **open a pull request!**
